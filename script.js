@@ -1,11 +1,11 @@
-const h3Elements = document.querySelectorAll('h3');
+const h2Elements = document.querySelectorAll('h2');
 
-h3Elements.forEach(h3Element => {
-  h3Element.addEventListener('mouseover', function() {
-    h3Element.style.color = "rebeccapurple";
+h2Elements.forEach(h2Element => {
+  h2Element.addEventListener('mouseover', function() {
+    h2Element.style.color = "rebeccapurple";
   });
 
-  h3Element.addEventListener('mouseout', function() {
-    h3Element.style.color = "black";
+  h2Element.addEventListener('mouseout', function() {
+    h2Element.style.color = "black";
   });
 });
