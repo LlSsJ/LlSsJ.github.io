@@ -27,7 +27,10 @@ cursor: pointer;/*设置光标的样式为指针样式*/
     display: none;
     cursor: pointer;
 }
-
+.btn{
+    font-size: 20px;
+    border-radius: 50px;
+}
 /*body {
 display: flex;
 flex-direction: column;
