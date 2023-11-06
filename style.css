@@ -1,8 +1,8 @@
 .bk{
-    /* background-image: url("imgs/bk.jpg");
+    background-image: url("imgs/bk.jpg");
     width: auto;
-    height: auto; */
-    background-color: rgb(203, 237, 226);
+    height: auto;
+/*     background-color: rgb(203, 237, 226); */
 }
 .font{
   font-family: '方正舒体', Arial, sans-serif;
