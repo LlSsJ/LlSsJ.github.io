@@ -5,13 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="imgs/kuaikan.png" />
     <title>小组招新啦</title>
+    <!--右边底部的向上箭头，能够返回到文章最开始的地方1/2 展示-->
+	  <link rel="stylesheet" type="text/css" href="iconSetup.css">
+    
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="semantic.min.css">
+    
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="semantic.min.js"></script>
+	
+	
+	<!--右边底部的向上箭头，能够返回到文章最开始的地方2/2 动态效果-->
+	<script type="text/javascript" src="wp-includes.js.jquery.jquery.js"></script>
+	<script type="text/javascript" src="wp-content.themes.type-plus.js.main.js"></script>
+
+
 </head>
 
 <body class="bk" style="text-align: center; margin: 120px;">
+  <div id="container">
+  
+  
+      <!-- start -->
+		<article>
+
+  
 <h1>星汉灿烂，翘盼君来</h1>
 
 <!-- 滚动字体 -->
@@ -19,14 +37,17 @@
 <!-- behavior="alternate" 循环移动-->
 
 <div style="text-align: left;"  class="font">
+
+
   <div>
-    <h2><img src="imgs/烟花.png"  class="image">小组名称:</h2>
+    <h2 id="Mincheng"><img src="imgs/烟花.png"  class="image">小组名称:</h2>
     <div ><font style="font-size: larger">MathsKiller</font></div>
   </div>
 </br>
 
   <div>
-    <h2><img src="imgs/烟花.png" class="image">小组成员:</h2>
+
+    <h2 id="Chengyuan"><img src="imgs/烟花.png" class="image">小组成员:</h2>
     ①老师：<div class="ui button" data-tooltip="研究方向：机器学习理论及其应用，城市计算，时空数据可视化" data-position="top center">
       陶涛
     </div>
@@ -50,11 +71,13 @@
       张中华
     </div>
     <div>还有期待加入的你</div>
+
   </div>
 </br>
 
   <div>
-    <h2><img src="imgs/烟花.png" class="image">要求：</h2>
+
+    <h2 id="Yaoqiu"><img src="imgs/烟花.png" class="image">要求：</h2>
     <h3>成绩要求：</h3>
     <div>
     - 英语能力好；</br>
@@ -70,11 +93,13 @@
     6.礼貌谦逊</br>
     7.踏实愿意学习、探索</br>
     </div> 
+
   </div>
 </br>
 
   <div>
-    <h2><img src="imgs/烟花.png" class="image">注意事项：</h2>
+
+    <h2 id="Thing"><img src="imgs/烟花.png" class="image">注意事项：</h2>
     <div>
     1. 小组会每学期定期开会，会议会布置任务和讲解任务，所以希望加入的同学，要在课余时间完成任务（加入小组会牺牲一些娱乐时间，比如双休或者寒暑假，毕竟，学习需要付出时间。能学到很多东西）；
     </br>
@@ -82,6 +107,7 @@
     </br>
     3. ...
     </div>
+
   </div>
 </br>
 
@@ -99,9 +125,16 @@
 <hr><!-- 添加横线-->
 <br>
 <font size="4">&copy mathskiller</font>
-    <br>
-    <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=285&t=n&d=nONWDZ3UMhVqRYKniZ9ovCJC3Nb21SSJkkEG63kqdB8&co=2d78ad&cmo=ffaabf&cmn=f8e272'></script>
+<br>
+<script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=nONWDZ3UMhVqRYKniZ9ovCJC3Nb21SSJkkEG63kqdB8&cl=ffffff&w=a"></script>
 <br>
 <br>
+
+<!-- end -->
+<a href="#container" id="scroll-up" style="display: block;">
+  <i class="material-icons md-20 md-middle"></i>
+</a>
+</article>
+</div>
 </body>
 </html>
