@@ -34,6 +34,128 @@
   
 <h1>星汉灿烂，翘盼君来</h1>
 
+<!--关键字搜素-->
+<input class="form-control" type="text" placeholder="输入关键字" id="keyword" autocomplete="off">
+<input class="form-control" type="text" style="width:55px;padding:0;margin-left:-5px;" id="flagText" readonly="readonly">
+<img src="imgs/搜索.png" class="image" onclick="highLight()" />
+<img src="imgs/叉叉.png" class="image" onclick="cancelSearch()" />
+
+
+<script>
+  var preNum = 0;//记录第几次点击查询框
+  var allNum = 0;//总共搜索到几条满足关键字的数据
+  var doing = false;//正在输入
+  $(document).keyup(function (event) {
+      if (event.key == "Enter") {//enter键盘事件
+          search();
+          return;
+      }
+  });
+  document.getElementById('keyword').addEventListener('compositionstart', function (e) {
+      doing = true;
+  }, false);
+  document.getElementById('keyword').addEventListener('input', function (e) {
+      if (!doing) {
+          highLight();
+      }
+  }, false);
+  document.getElementById('keyword').addEventListener('compositionend', function (e) {
+      doing = false;
+      highLight();
+  }, false);
+  function highLight() {
+      cancelhighLight();
+      var searchText = $("#keyword").val();//输入框的值
+      if (searchText.length >0) {
+          var needEachDom = ['a', 'p', 'span', 'h1', 'h2', 'h3', 'div', 'font'];
+          for (var i = 0; i < needEachDom.length; i++) {
+              var dom = needEachDom[i];
+              changeDom(dom, searchText);
+          }
+          if (allNum > 0 && $(".highlight").size() > 0) {
+              preNum = 0;
+              var new_top = $(".highlight").eq(preNum).offset().top;
+              slide(new_top);
+              $(".highlight").eq(preNum).css('background-color', '#D8BFD8');
+              preNum = preNum + 1;
+          }
+          $('#flagText').val(preNum + "/" + allNum);
+      } 
+  }
+  function search()
+  {
+      if ($(".highlight").size() > 1)
+      {
+          if (preNum <allNum) {
+              preNum = preNum + 1;
+              var new_top = $(".highlight").eq(preNum - 1).offset().top;
+              $(".highlight").eq(preNum - 2).css('background-color', '');
+              $(".highlight").eq(preNum - 1).css('background-color', '#D8BFD8');
+              slide(new_top);
+              $('#flagText').val(preNum + "/" + allNum);
+          } else
+          {
+              preNum = 0;
+              var new_top = $(".highlight").eq(preNum).offset().top;
+              $(".highlight").eq(allNum - 1).css('background-color', '');
+              $(".highlight").eq(preNum).css('background-color', '#D8BFD8');
+              slide(new_top);
+              $('#flagText').val(1 + "/" + allNum);
+          }
+      }
+  }
+  function slide(scollTopPx)
+  {
+  //此处我是根据自己的实际情况来判断需要滑动到什么位置，这个可以按照自己的情况实现
+      if (scollTopPx <= 500) {
+          $("html,body").animate({ scrollTop: "10px" });
+      } else if (scollTopPx > 500 && scollTopPx <= 1000) {
+          $("html,body").animate({ scrollTop: "500px" });
+      } else if (scollTopPx > 1000) {
+          $("html,body").animate({ scrollTop: "1000px" });
+      }
+  }
+  function changeDom(domStr, searchText)
+  {
+      var regExp = new RegExp(searchText, 'g');
+      $(domStr).each(function () {
+          var html = $(this)[0].innerHTML;
+          var classListStr = $(this)[0].classList.toString();//不包含隐藏的HTML
+          if (html.indexOf(searchText) >= 0&&classListStr.indexOf("hidden")<0) {
+              if (((domStr == 'font' || domStr == 'p') && $(this)[0].className != "highlight") || ($(this)[0].children.length == 0 && domStr != 'font' && domStr != 'p'))
+              {
+                  var newHtml = html.replace(regExp, '<font class="highlight">' + searchText + '</font>');
+                  $(this).html(newHtml);
+                  //allNum = allNum + 1;
+              }
+          }
+      });
+      allNum = $(".highlight").size();
+  }
+  function cancelSearch()
+  {
+      $('#keyword').val("");//清空搜索框
+      $('#flagText').val("");
+      cancelhighLight();
+  }
+  function cancelhighLight() {
+      for (var i = 0; i < $(".highlight").size(); i++) {
+          $(".highlight").eq(i).css('background-color', '');
+      }
+      //删除高亮标签
+      $(".highlight").each(function () {
+          var content = $(this).html();
+          $(this).replaceWith(content);
+      })
+      //清除数字标记
+      preNum = 0;
+      allNum = 0;
+  }
+     
+</script>
+<!--关键字搜素-->
+
+
 <!-- 滚动字体 -->
 <em><marquee onmouseout="this.start()" onmouseover="this.stop()" scrollamount="5"><font size="5" color="#ffaabf" face="方正舒体">涂抹青春色彩，共建团队生活。快来加入我们吧！</font></marquee></em>
 <!-- behavior="alternate" 循环移动-->
@@ -42,17 +164,16 @@
 
 
   <div>
-    <h2 id="Mincheng"><img src="imgs/烟花.png"  class="image">小组名称:</h2>
+    <h2 id="Mincheng"><img src="imgs/烟花.png"  class="image"><span>小组名称:</span></h2>
     <div ><font style="font-size: larger">MathsKiller</font></div>
   </div>
 </br>
 
   <div>
 
-    <h2 id="Chengyuan"><img src="imgs/烟花.png" class="image">小组成员:</h2>
-    ①老师：<div class="ui button" data-tooltip="研究方向：机器学习理论及其应用，城市计算，时空数据可视化" data-position="top center">
-      陶涛
-    </div>
+    <h2 id="Chengyuan"><img src="imgs/烟花.png" class="image"><span>小组成员:</span></h2>
+    <span>①老师：</span>
+    <div class="ui button" data-tooltip="研究方向：机器学习理论及其应用，城市计算，时空数据可视化" data-position="top center">陶涛</div>
     <div>②学生（按姓氏拼音首字母排序）：</div>
     <div class="ui button" data-tooltip="在学技术：智慧地图制图、前后端开发" data-position="top center">
       丁子杰
@@ -79,21 +200,23 @@
 
   <div>
 
-    <h2 id="Yaoqiu"><img src="imgs/烟花.png" class="image">要求：</h2>
+    <h2 id="Yaoqiu"><img src="imgs/烟花.png" class="image"><span>要求：</span></h2>
     <h3>成绩要求：</h3>
     <div>
-    - 英语能力好；</br>
-    - 善于逻辑思考，编程能力较强（后期可以培养）；</br>
+    <span>- 英语能力好；</span>
+    </br>
+    <span>- 善于逻辑思考，编程能力较强（后期可以培养）；</span>
     </div> 
+
     <h3>重要素质要求：</h3>
     <div>
-    1.真诚</br>
-    2.靠谱</br>
-    3.积极主动</br>
-    4.高效完成任务</br>
-    5.善谈</br>
-    6.礼貌谦逊</br>
-    7.踏实愿意学习、探索</br>
+    <span>1.真诚</span></br>
+    <span>2.靠谱</span></br>
+    <span>3.积极主动</span></br>
+    <span>4.高效完成任务</span></br>
+    <span>5.善谈</span></br>
+    <span>6.礼貌谦逊</span></br>
+    <span>7.踏实愿意学习、探索</span></br>
     </div> 
 
   </div>
@@ -101,13 +224,13 @@
 
   <div>
 
-    <h2 id="Thing"><img src="imgs/烟花.png" class="image">注意事项：</h2>
+    <h2 id="Thing"><img src="imgs/烟花.png" class="image"><span>注意事项：</span></h2>
     <div>
-    1. 小组会每学期定期开会，会议会布置任务和讲解任务，所以希望加入的同学，要在课余时间完成任务（加入小组会牺牲一些娱乐时间，比如双休或者寒暑假，毕竟，学习需要付出时间。能学到很多东西）；
+    <span>1. 小组会每学期定期开会，会议会布置任务和讲解任务，所以希望加入的同学，要在课余时间完成任务（加入小组会牺牲一些娱乐时间，比如双休或者寒暑假，毕竟，学习需要付出时间。能学到很多东西）；</span>
     </br>
-    2. 小组每位成员需自备一个小本子，用来记录开会所讲内容，好记性不如烂笔头；
+    <span>2. 小组每位成员需自备一个小本子，用来记录开会所讲内容，好记性不如烂笔头；</span>
     </br>
-    3. ...
+    <span>3. ...</span>
     </div>
 
   </div>
@@ -137,6 +260,7 @@ $('#imgshow1').attr('src', "./imgs/run.png");
       </div>   
   </center>
 
+  
 <script src="https://giscus.app/client.js"
         data-repo="LlSsJ/LlSsJ.github.io"
         data-repo-id="R_kgDOKWP0Mg"
@@ -152,8 +276,8 @@ $('#imgshow1').attr('src', "./imgs/run.png");
         data-loading="lazy"
         crossorigin="anonymous"
         async>
-</script>
-			
+</script><!--添加评论功能-->
+
   <div><b>有意向者，发送邮件到<a href="mailto:youremail@example.com">taot@ahnu.edu.cn.</a></b></div>
 <br>
 <hr><!-- 添加横线-->
